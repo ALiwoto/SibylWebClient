@@ -48,7 +48,7 @@ export default function Check() {
                     txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase()
                 )
                 .replace(/Id/g, "ID")}: ${
-                typeof value === "boolean" ? (value ? "yes" : "no") : value
+                typeof value === "boolean" ? (value ? "Yes" : "No") : value
               }`
           )
           .join("\n")
