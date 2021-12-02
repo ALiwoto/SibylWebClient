@@ -1,15 +1,22 @@
 import { objQs } from "../utils";
 
-export const authorize = (token: string) =>
+export const authorize = (token: string, endpoint: string) => {
   localStorage.setItem("token", token);
+  localStorage.setItem("endpoint", endpoint);
+};
 
-export const unauthorize = () => localStorage.removeItem("token");
+export const unauthorize = () => {
+  localStorage.removeItem("token");
+  localStorage.removeItem("endpoint");
+};
 
-export const authorized = () => Boolean(window.localStorage.getItem("token"));
+export const authorized = () =>
+  Boolean(localStorage.getItem("token") && localStorage.getItem("endpoint"));
 
 export const send = async (
   method: string,
   data: any,
+  opts?: { endpoint?: string },
 ) => {
   const token = localStorage.getItem("token");
 
@@ -18,7 +25,8 @@ export const send = async (
   }
 
   return await (await fetch(
-    "https://psychopass.animekaizoku.com/" + method + "?" +
+    (opts?.endpoint || localStorage.getItem("endpoint")) +
+      method + "?" +
       objQs(data),
     {
       method: "GET",

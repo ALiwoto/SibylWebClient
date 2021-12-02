@@ -10,19 +10,33 @@ export default function Authorize() {
   const submit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    const token = z
-      .string()
-      .nonempty()
-      .parse(formObj(event.currentTarget).token);
+    let { token, endpoint } = z
+      .object({
+        token: z.string().nonempty(),
+        endpoint: z.string(),
+      })
+      .parse(formObj(event.currentTarget));
 
-    const { result: valid } = await send("checkToken", { token });
+    endpoint = endpoint || "https://psychopass.animekaizoku.com/";
+
+    console.log(endpoint);
+
+    let valid;
+
+    try {
+      const { result } = await send("checkToken", { token }, { endpoint });
+      valid = result;
+    } catch (err) {
+      alert(err.message || String(err));
+      return;
+    }
 
     if (!valid) {
       alert("Invalid token.");
       return;
     }
 
-    authorize(token);
+    authorize(token, endpoint.endsWith("/") ? endpoint : endpoint + "/");
     router.replace("../");
   };
 
@@ -38,10 +52,17 @@ export default function Authorize() {
         type="password"
         id="token"
         name="token"
-        placeholder="Token"
-        className="block px-2 py-2 border-2 border-gray-500 w-full mb-2"
+        placeholder="Token*"
+        className="block px-2 py-2 border-2 border-dark bg-light w-full mb-2"
       />
-      <button className="block px-2 py-2 text-white mx-auto w-full bg-gray-500 hover:bg-gray-600 mb-2">
+      <input
+        type="text"
+        id="endpoint"
+        name="endpoint"
+        placeholder="Endpoint"
+        className="block px-2 py-2 border-2 border-dark bg-light w-full mb-2"
+      />
+      <button className="block px-2 py-2 text-light mx-auto w-full bg-dark hover:bg-dark-alt mb-2">
         Authorize
       </button>
       <p>

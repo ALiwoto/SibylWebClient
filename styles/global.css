@@ -1,0 +1,17 @@
+@import "tailwindcss/tailwind";
+
+:root {
+  --dark: #222;
+  --dark-alt: #333;
+  --light: #eee;
+  --light-alt: #ccc;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --dark: #eee;
+    --dark-alt: #ccc;
+    --light: #222;
+    --light-alt: #333;
+  }
+}
