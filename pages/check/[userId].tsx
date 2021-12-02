@@ -33,9 +33,19 @@ export default function Check() {
 
       setResult(
         Object.entries(result.result)
+          .filter(([_, value]: [string, string | number | boolean]) =>
+            typeof value === "string" ? value.length != 0 : true
+          )
           .map(
             ([key, value]: [string, string | number | boolean]) =>
-              `${key}: ${
+              `${key
+                .replace(/_/g, " ")
+                .replace(
+                  /\w\S*/g,
+                  (txt) =>
+                    txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase()
+                )
+                .replace(/Id/g, "ID")}: ${
                 typeof value === "boolean" ? (value ? "yes" : "no") : value
               }`
           )
@@ -47,7 +57,13 @@ export default function Check() {
   return (
     <>
       <h1 className="text-2xl mb-2">Stats for {userId}</h1>
-      <pre className="overflow-scroll text-lg mb-2">{result}</pre>
+      <p className="text-lg mb-2">
+        {result.split("\n").map((result) => (
+          <>
+            {result} <br />
+          </>
+        ))}
+      </p>
       <h1 className="text-2xl mb-2">Check another ID</h1>
       <input
         className="block px-2 py-2 border-2 border-dark bg-light w-full mb-2"
