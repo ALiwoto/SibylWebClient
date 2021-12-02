@@ -48,7 +48,7 @@ export default function Check() {
     <>
       <h1 className="text-2xl mb-2">Stats for {userId}</h1>
       <pre className="overflow-scroll text-lg mb-2">{result}</pre>
-      <h1 className="text-2xl mb-2">Check another one</h1>
+      <h1 className="text-2xl mb-2">Check another ID</h1>
       <input
         className="block px-2 py-2 border-2 border-dark bg-light w-full mb-2"
         type="number"
