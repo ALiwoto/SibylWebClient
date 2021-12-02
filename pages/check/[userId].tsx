@@ -66,7 +66,7 @@ export default function Check() {
       </p>
       <Link href="/check">
         <a className="border-b-2 border-gray-500 hover:bg-gray-500 hover:text-white">
-          Check another ID
+          Check another user
         </a>
       </Link>
     </>
