@@ -17,11 +17,11 @@ export default function Check() {
   });
 
   useEffect(() => {
-    (async () => {
-      if (!router.isReady) {
-        return;
-      }
+    if (!router.isReady) {
+      return;
+    }
 
+    (async () => {
       const userid = Number(router.query.userId);
 
       setUserId(userid);
