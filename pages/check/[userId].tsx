@@ -2,9 +2,11 @@ import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 import { authorized, send } from "../../sibyl";
 import Link from "next/link";
+import Loader from "../../components/Loader";
 
 export default function Check() {
   const router = useRouter();
+  const [ready, setReady] = useState(false);
   const [userId, setUserId] = useState(0);
   const [result, setResult] = useState("");
 
@@ -51,24 +53,32 @@ export default function Check() {
           )
           .join("\n")
       );
+
+      setReady(true);
     })();
   }, [router.isReady]);
 
   return (
     <>
-      <h1 className="text-2xl mb-2">Stats for {userId}</h1>
-      <p className="text-lg mb-2">
-        {result.split("\n").map((result) => (
-          <>
-            {result} <br />
-          </>
-        ))}
-      </p>
-      <Link href="/check">
-        <a className="border-b-2 border-gray-500 hover:bg-gray-500 hover:text-white">
-          Check another user
-        </a>
-      </Link>
+      {ready ? (
+        <>
+          <h1 className="text-2xl mb-2">Stats for {userId}</h1>
+          <p className="text-lg mb-2">
+            {result.split("\n").map((result) => (
+              <>
+                {result} <br />
+              </>
+            ))}
+          </p>
+          <Link href="/check">
+            <a className="border-b-2 border-gray-500 hover:bg-gray-500 hover:text-white">
+              Check another user
+            </a>
+          </Link>
+        </>
+      ) : (
+        <Loader />
+      )}
     </>
   );
 }
