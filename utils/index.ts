@@ -1,3 +1,5 @@
+import { NextPage } from "next";
+
 export const formObj = (
   form: HTMLFormElement,
 ) => {

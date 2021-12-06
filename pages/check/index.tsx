@@ -1,20 +1,12 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import Link from "next/link";
-import { useRouter } from "next/router";
-import { authorized } from "../../sibyl";
+import RequiresAuthentication from "../../components/RequiresAuthentication";
 
 export default function Index() {
-  const router = useRouter();
   const [userId, setUserId] = useState(0);
 
-  useEffect(() => {
-    if (!authorized()) {
-      router.replace("/authorize");
-    }
-  });
-
   return (
-    <>
+    <RequiresAuthentication>
       <input
         className="block px-2 py-2 border-2 border-dark bg-light w-full mb-2"
         type="number"
@@ -29,6 +21,6 @@ export default function Index() {
           Check
         </button>
       </Link>
-    </>
+    </RequiresAuthentication>
   );
 }

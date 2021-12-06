@@ -1,20 +1,15 @@
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
-import { authorized, send } from "../../sibyl";
+import { send } from "../../sibyl";
 import Link from "next/link";
 import Loader from "../../components/Loader";
+import RequiresAuthentication from "../../components/RequiresAuthentication";
 
 export default function Check() {
   const router = useRouter();
   const [ready, setReady] = useState(false);
   const [userId, setUserId] = useState(0);
   const [result, setResult] = useState("");
-
-  useEffect(() => {
-    if (!authorized()) {
-      router.replace("/authorize");
-    }
-  });
 
   useEffect(() => {
     if (!router.isReady) {
@@ -26,7 +21,7 @@ export default function Check() {
 
       setUserId(userid);
 
-      const result = await send("getInfo", { userid });
+      const { result } = await send("getInfo", { userid });
 
       if (result.error) {
         setResult(`Error ${result.error.code}: ${result.error.message}`);
@@ -59,7 +54,7 @@ export default function Check() {
   }, [router.isReady]);
 
   return (
-    <>
+    <RequiresAuthentication>
       {ready ? (
         <>
           <h1 className="text-2xl mb-2">Stats for {userId}</h1>
@@ -79,6 +74,6 @@ export default function Check() {
       ) : (
         <Loader />
       )}
-    </>
+    </RequiresAuthentication>
   );
 }

@@ -1,12 +1,13 @@
 import { AppProps } from "next/app";
+import { AuthProvider } from "../contexts/auth";
 import "../styles/global.css";
 
-function MyApp({ Component, pageProps }: AppProps) {
+export default function App({ Component, pageProps }: AppProps) {
   return (
-    <main className="mt-5 px-3 mx-auto w-full max-w-lg">
-      <Component {...pageProps} />
-    </main>
+    <AuthProvider>
+      <main className="mt-5 px-3 mx-auto w-full max-w-lg">
+        <Component {...pageProps} />
+      </main>
+    </AuthProvider>
   );
 }
-
-export default MyApp;
