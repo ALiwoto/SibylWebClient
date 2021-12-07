@@ -8,7 +8,7 @@ export default function RequiresAuthentication({ children }) {
   const auth = useAuth();
 
   if (auth.authenticated) {
-    return { children };
+    return <>{children}</>;
   }
 
   useEffect(() => {
