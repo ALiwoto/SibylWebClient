@@ -7,11 +7,17 @@ export default function RequiresAuthentication({ children }) {
   const router = useRouter();
   const auth = useAuth();
 
+  if (auth.authenticated) {
+    return { children };
+  }
+
   useEffect(() => {
-    if (!auth.authenticated) {
-      router.push("/");
-    }
+    router.push("/authenticate");
   });
 
-  return <>{auth.authenticated ? children : <Loader />}</>;
+  return (
+    <>
+      <Loader />
+    </>
+  );
 }
