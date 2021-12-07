@@ -1,0 +1,32 @@
+{
+    "theme_color": "#f3f0ed",
+    "background_color": "#f5f4f2",
+    "display": "browser",
+    "scope": "/favicon.ico",
+    "start_url": "/favicon.ico",
+    "name": "favicon.ico",
+    "short_name": "favicon.ico",
+    "description": "favicon",
+    "icons": [
+        {
+            "src": "/icon-192x192.png",
+            "sizes": "192x192",
+            "type": "image/png"
+        },
+        {
+            "src": "/icon-256x256.png",
+            "sizes": "256x256",
+            "type": "image/png"
+        },
+        {
+            "src": "/icon-384x384.png",
+            "sizes": "384x384",
+            "type": "image/png"
+        },
+        {
+            "src": "/icon-512x512.png",
+            "sizes": "512x512",
+            "type": "image/png"
+        }
+    ]
+}
