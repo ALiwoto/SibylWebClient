@@ -29,7 +29,7 @@ export default function Check() {
       }
 
       setResult(
-        Object.entries(result.result)
+        Object.entries(result)
           .filter(([_, value]: [string, string | number | boolean]) =>
             typeof value === "string" ? value.length != 0 : true
           )
