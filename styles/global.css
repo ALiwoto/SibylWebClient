@@ -15,3 +15,7 @@
     --light-alt: #333;
   }
 }
+
+circle {
+  stroke: var(--dark);
+}
